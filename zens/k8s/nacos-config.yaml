@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nacos-mysql-config
+  namespace: dawn-system
+data:
+  mysql.host: "172.29.18.201"
+  mysql.db: "nacos"
+  mysql.port: "3306"
+  mysql.user: "root"
+  mysql.password: "root"
