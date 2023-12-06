@@ -357,6 +357,7 @@
                         <exclude>**/predefined-classes-config.json</exclude>
                         <exclude>**/serialization-config.json</exclude>
                         <exclude>**/filter-config.json</exclude>
+                        <exclude>zens/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>
