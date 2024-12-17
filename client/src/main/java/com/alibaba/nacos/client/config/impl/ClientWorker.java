@@ -1096,7 +1096,7 @@ public class ClientWorker implements Closeable {
                 RpcClientTlsConfig clientTlsConfig = RpcClientTlsConfigFactory.getInstance()
                         .createSdkConfig(properties);
                 RpcClient rpcClient = RpcClientFactory.createClient(uuid + "_config-" + taskId, getConnectionType(),
-                        newLabels, clientTlsConfig);
+                        ThreadUtils.getSuitableThreadCount(1), null, newLabels, clientTlsConfig);
                 if (rpcClient.isWaitInitiated()) {
                     initRpcClientHandler(rpcClient);
                     rpcClient.setTenant(getTenant());

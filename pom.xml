@@ -88,7 +88,7 @@
     </issueManagement>
     
     <properties>
-        <revision>2.4.3</revision>
+        <revision>2.4.3.1</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Compiler settings properties -->
@@ -364,6 +364,7 @@
                         <exclude>**/filter-config.json</exclude>
                         <exclude>**/disk_cache_test/**</exclude>
                         <exclude>**/failover_test/**</exclude>
+                        <exclude>zens/**</exclude>
                         <exclude>lefthook.yml</exclude>
                     </excludes>
                 </configuration>
@@ -1070,15 +1071,9 @@
     </dependencyManagement>
     
     <distributionManagement>
-        <snapshotRepository>
-            <!-- The ID here must be exactly the same as the value
-             of the server element id in the settings.xml file of MAVEN -->
-            <id>sona</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
         <repository>
-            <id>sona</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>maven-releases</id>
+            <url>http://nexus.zens.work/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 
