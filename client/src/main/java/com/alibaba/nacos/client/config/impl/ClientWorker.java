@@ -65,6 +65,7 @@ import com.alibaba.nacos.common.remote.client.RpcClient;
 import com.alibaba.nacos.common.remote.client.RpcClientConfigFactory;
 import com.alibaba.nacos.common.remote.client.RpcClientFactory;
 import com.alibaba.nacos.common.remote.client.ServerListFactory;
+import com.alibaba.nacos.common.remote.client.grpc.DefaultGrpcClientConfig;
 import com.alibaba.nacos.common.remote.client.grpc.GrpcClientConfig;
 import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.alibaba.nacos.common.utils.ConnLabelsUtils;
@@ -1152,8 +1153,10 @@ public class ClientWorker implements Closeable {
                 Map<String, String> labels = getLabels();
                 Map<String, String> newLabels = new HashMap<>(labels);
                 newLabels.put("taskId", taskId);
-                GrpcClientConfig grpcClientConfig = RpcClientConfigFactory.getInstance()
-                        .createGrpcClientConfig(properties, newLabels);
+                GrpcClientConfig grpcClientConfig = DefaultGrpcClientConfig.newBuilder().setLabels(newLabels).buildSdkFromProperties(properties)
+                        .setThreadPoolCoreSize(ThreadUtils.getSuitableThreadCount(1))
+                        .setThreadPoolMaxSize(ThreadUtils.getSuitableThreadCount(4))
+                        .build();
                 RpcClient rpcClient = RpcClientFactory.createClient(uuid + "_config-" + taskId, getConnectionType(),
                         grpcClientConfig);
                 if (rpcClient.isWaitInitiated()) {

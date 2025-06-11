@@ -88,7 +88,7 @@
     </issueManagement>
     
     <properties>
-        <revision>3.0.1</revision>
+        <revision>3.0.1.1</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Compiler settings properties -->
@@ -378,6 +378,7 @@
                         <exclude>**/filter-config.json</exclude>
                         <exclude>**/disk_cache_test/**</exclude>
                         <exclude>**/failover_test/**</exclude>
+                        <exclude>full-sync-upstream.sh</exclude>
                         <exclude>lefthook.yml</exclude>
                     </excludes>
                 </configuration>
@@ -502,14 +503,14 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <publishingServerId>sona</publishingServerId>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.sonatype.central</groupId>-->
+<!--                <artifactId>central-publishing-maven-plugin</artifactId>-->
+<!--                <extensions>true</extensions>-->
+<!--                <configuration>-->
+<!--                    <publishingServerId>sona</publishingServerId>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
     
@@ -1149,5 +1150,11 @@
         </dependencies>
     </dependencyManagement>
 
+    <distributionManagement>
+        <repository>
+            <id>maven-releases</id>
+            <url>http://nexus.zens.work/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
 </project>
 
