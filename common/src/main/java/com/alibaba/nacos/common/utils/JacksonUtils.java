@@ -43,7 +43,7 @@ public final class JacksonUtils {
     private JacksonUtils() {
     }
     
-    static ObjectMapper mapper = JsonMapper.builder()
+    static ObjectMapper mapper = JsonMapper.builderWithJackson2Defaults()
             .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
             .changeDefaultPropertyInclusion(incl -> incl.withValueInclusion(Include.NON_NULL)
                     .withContentInclusion(Include.NON_NULL))

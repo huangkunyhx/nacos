@@ -18,10 +18,11 @@ package com.alibaba.nacos.client.auth.oidc;
 
 import com.alibaba.nacos.common.utils.RandomUtils;
 import com.alibaba.nacos.plugin.auth.constant.OidcProtocolConstants;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -152,7 +153,7 @@ public class OidcTokenHolder {
             LOGGER.info("[OIDC-CLIENT] Access token obtained successfully, expires_in: {}s", newExpiresIn);
             return true;
             
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             LOGGER.error("[OIDC-CLIENT] Failed to parse token response", e);
             return false;
         }
