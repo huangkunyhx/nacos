@@ -27,9 +27,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -37,6 +35,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -72,8 +71,7 @@ class ConfigBetaConfigITCase {
     
     private String url;
     
-    @Autowired
-    private TestRestTemplate restTemplate;
+    private RestTemplate restTemplate = new RestTemplate();
     
     @BeforeAll
     @AfterAll
@@ -297,7 +295,7 @@ class ConfigBetaConfigITCase {
         
         HttpEntity<?> entity = new HttpEntity<T>(headers);
         
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(this.url.toString() + path).queryParams(params);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromPath(this.url.toString() + path).queryParams(params);
         
         return this.restTemplate.exchange(builder.toUriString(), httpMethod, entity, clazz);
     }
@@ -307,7 +305,7 @@ class ConfigBetaConfigITCase {
         
         HttpEntity<?> entity = new HttpEntity<T>(headers);
         
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(this.url.toString() + path).queryParams(params);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromPath(this.url.toString() + path).queryParams(params);
         
         return this.restTemplate.exchange(builder.toUriString(), httpMethod, entity, clazz);
     }

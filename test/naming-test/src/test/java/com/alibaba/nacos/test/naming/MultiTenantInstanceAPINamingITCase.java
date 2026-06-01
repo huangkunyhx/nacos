@@ -26,9 +26,7 @@ import com.alibaba.nacos.test.base.Params;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -36,6 +34,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URL;
@@ -68,8 +67,7 @@ class MultiTenantInstanceAPINamingITCase {
     @LocalServerPort
     private int port;
     
-    @Autowired
-    private TestRestTemplate restTemplate;
+    private RestTemplate restTemplate = new RestTemplate();
     
     private URL base;
     
@@ -458,8 +456,8 @@ class MultiTenantInstanceAPINamingITCase {
         
         HttpEntity<?> entity = new HttpEntity<T>(headers);
         
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(this.base.toString() + path).queryParams(params);
-        
+        UriComponentsBuilder builder = UriComponentsBuilder.fromPath(this.base.toString() + path).queryParams(params);
+
         return this.restTemplate.exchange(builder.toUriString(), httpMethod, entity, clazz);
     }
 }

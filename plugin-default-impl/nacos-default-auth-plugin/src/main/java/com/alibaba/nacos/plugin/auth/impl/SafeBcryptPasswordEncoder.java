@@ -40,11 +40,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SafeBcryptPasswordEncoder extends BCryptPasswordEncoder {
 
     @Override
-    public boolean matches(CharSequence rawPassword, String encodedPassword) {
-        // Reject excessively long passwords immediately
-        if (rawPassword != null && rawPassword.length() > AuthConstants.MAX_PASSWORD_LENGTH) {
+    protected boolean matchesNonNull(String rawPassword, String encodedPassword) {
+        if (rawPassword.length() > AuthConstants.MAX_PASSWORD_LENGTH) {
             return false;
         }
-        return super.matches(rawPassword, encodedPassword);
+        return super.matchesNonNull(rawPassword, encodedPassword);
     }
 }

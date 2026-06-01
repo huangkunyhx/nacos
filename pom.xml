@@ -88,7 +88,7 @@
     </issueManagement>
     
     <properties>
-        <revision>3.2.1</revision>
+        <revision>3.2.1.1</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Compiler settings properties -->
@@ -128,7 +128,7 @@
         
         <!-- dependency version -->
         <nacos.logback.adapter.version>1.1.4</nacos.logback.adapter.version>
-        <spring-boot-dependencies.version>3.5.13</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>4.0.4</spring-boot-dependencies.version>
         <commons-io.version>2.14.0</commons-io.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <slf4j-api.version>2.0.13</slf4j-api.version>
@@ -138,7 +138,6 @@
         <mysql-connector-java.version>8.2.0</mysql-connector-java.version>
         <postgresql.version>42.7.2</postgresql.version>
         <derby.version>10.14.2.0</derby.version>
-        <jjwt.version>0.11.2</jjwt.version>
         <grpc-java.version>1.78.0</grpc-java.version>
         <proto-google-common-protos.version>2.17.0</proto-google-common-protos.version>
         <protobuf-java.version>3.25.5</protobuf-java.version>
@@ -161,7 +160,7 @@
         <central.publishing.maven.version>0.7.0</central.publishing.maven.version>
 
         <!-- override dependency version -->
-        <micrometer.version>1.12.8</micrometer.version>
+        <micrometer.version>1.16.4</micrometer.version>
         
         <!-- native -->
         <native-maven-plugin.version>0.10.2</native-maven-plugin.version>
@@ -354,6 +353,7 @@
                         <exclude>.qoder/**</exclude>
                         <exclude>.tools/**</exclude>
                         <exclude>skills/**</exclude>
+                        <exclude>full-sync-upstream.sh</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -482,14 +482,14 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <publishingServerId>central</publishingServerId>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.sonatype.central</groupId>-->
+<!--                <artifactId>central-publishing-maven-plugin</artifactId>-->
+<!--                <extensions>true</extensions>-->
+<!--                <configuration>-->
+<!--                    <publishingServerId>central</publishingServerId>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
     
@@ -1046,26 +1046,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            
-            <!-- Third-party libs -->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-api</artifactId>
-                <version>${jjwt.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-impl</artifactId>
-                <version>${jjwt.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-jackson</artifactId>
-                <version>${jjwt.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            
+
             <dependency>
                 <groupId>javax.annotation</groupId>
                 <artifactId>javax.annotation-api</artifactId>
@@ -1176,4 +1157,10 @@
         </dependencies>
     </dependencyManagement>
 
+    <distributionManagement>
+        <repository>
+            <id>maven-releases</id>
+            <url>http://nexus.zens.work/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
 </project>
